@@ -5,15 +5,25 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
 public class Conta implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String email;
 	private String senha;
 	private Date dataCriacao;
 	private Boolean estado;
+	@ElementCollection
+	@CollectionTable(name = "contacto")
 	private Set<String> contactos = new HashSet<>();
 	
 	
