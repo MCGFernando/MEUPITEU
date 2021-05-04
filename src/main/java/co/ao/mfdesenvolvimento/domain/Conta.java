@@ -16,7 +16,7 @@ public class Conta implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer id;	
 	private String nome;
 	private String email;
 	private String senha;
