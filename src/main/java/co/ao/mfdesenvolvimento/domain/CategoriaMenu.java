@@ -2,19 +2,33 @@ package co.ao.mfdesenvolvimento.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+
+@Entity
 public class CategoriaMenu implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String categoria;
+	@ManyToOne
+	@JoinColumn(name = "restaurante_id")
+	private Restaurante restaurante;
 	
 	public CategoriaMenu() {
 	}
 
-	public CategoriaMenu(Integer id, String categoria) {
+	public CategoriaMenu(Integer id, String categoria, Restaurante restaurante) {
 		super();
 		this.id = id;
 		this.categoria = categoria;
+		this.restaurante = restaurante;
 	}
 
 	public Integer getId() {
@@ -31,6 +45,14 @@ public class CategoriaMenu implements Serializable{
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 
 	@Override

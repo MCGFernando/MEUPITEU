@@ -9,11 +9,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import co.ao.mfdesenvolvimento.domain.CategoriaMenu;
 import co.ao.mfdesenvolvimento.domain.Conta;
 import co.ao.mfdesenvolvimento.domain.Endereco;
 import co.ao.mfdesenvolvimento.domain.Municipio;
 import co.ao.mfdesenvolvimento.domain.Provincia;
 import co.ao.mfdesenvolvimento.domain.Restaurante;
+import co.ao.mfdesenvolvimento.repositories.CategoriaMenuRepository;
 import co.ao.mfdesenvolvimento.repositories.ContaRepository;
 import co.ao.mfdesenvolvimento.repositories.EnderecoRepository;
 import co.ao.mfdesenvolvimento.repositories.MunicipioRepository;
@@ -37,6 +39,8 @@ public class MeupiteuApplication implements CommandLineRunner {
 	private EnderecoRepository enderecoRepository;
 	@Autowired
 	private RestauranteRepository restauranteRepository;
+	@Autowired
+	private CategoriaMenuRepository categoriaMenuRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -64,6 +68,11 @@ public class MeupiteuApplication implements CommandLineRunner {
 		Endereco end2 = new Endereco(null, "Av Sao Paulo", "Sao Paulo", null, null, "Sebastiao Desta Vez", "184", "3º", "2C Lado B", null, mun1);
 		
 		enderecoRepository.saveAll(Arrays.asList(end1, end2));
+		
+		CategoriaMenu cat1 = new CategoriaMenu(null, "Pratos Principais", rest1);
+		CategoriaMenu cat2 = new CategoriaMenu(null, "Bebidas", rest1);
+		
+		categoriaMenuRepository.saveAll(Arrays.asList(cat1,cat2));
 		
 	}
 	

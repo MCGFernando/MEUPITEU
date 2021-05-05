@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -31,6 +32,10 @@ public class Restaurante implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "tag")
 	private List<String> tags = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "restaurante")
+	private List<CategoriaMenu> categorias;
+	
 	@OneToOne
 	@JoinColumn(name = "conta_id")
 	//@MapsId
@@ -102,6 +107,14 @@ public class Restaurante implements Serializable{
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+
+	public List<CategoriaMenu> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<CategoriaMenu> categorias) {
+		this.categorias = categorias;
 	}
 
 	@Override
