@@ -5,12 +5,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 @Entity
 public class Conta implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,6 +29,8 @@ public class Conta implements Serializable{
 	@CollectionTable(name = "contacto")
 	private Set<String> contactos = new HashSet<>();
 	
+	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "conta", optional = true, fetch = FetchType.LAZY)
+	private Restaurante restaurante;*/
 	
 	public Conta() {
 	}
@@ -38,6 +43,7 @@ public class Conta implements Serializable{
 		this.senha = senha;
 		this.dataCriacao = dataCriacao;
 		this.estado = estado;
+		//this.restaurante = restaurante;
 	}
 
 	public Integer getId() {
@@ -95,6 +101,14 @@ public class Conta implements Serializable{
 	public void setContactos(Set<String> contactos) {
 		this.contactos = contactos;
 	}
+
+	/*public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
+	}*/
 
 	@Override
 	public int hashCode() {

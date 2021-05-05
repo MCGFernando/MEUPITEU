@@ -2,9 +2,18 @@ package co.ao.mfdesenvolvimento.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+@Entity
 public class Endereco implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String endereco;
 	private String bairro;
@@ -15,12 +24,14 @@ public class Endereco implements Serializable{
 	private String andar;
 	private String casa;
 	private String referencia;
-	
+	@ManyToOne
+	@JoinColumn(name = "municipio_id")
+	private Municipio municipio;
 	public Endereco() {
 	}
 
 	public Endereco(Integer id, String endereco, String bairro, String quarteirao, String sector, String rua,
-			String edificio, String andar, String casa, String referencia) {
+			String edificio, String andar, String casa, String referencia, Municipio municipio) {
 		super();
 		this.id = id;
 		this.endereco = endereco;
@@ -32,6 +43,7 @@ public class Endereco implements Serializable{
 		this.andar = andar;
 		this.casa = casa;
 		this.referencia = referencia;
+		this.municipio = municipio;
 	}
 
 	public Integer getId() {
@@ -112,6 +124,14 @@ public class Endereco implements Serializable{
 
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
+	}
+
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
 	}
 
 	@Override

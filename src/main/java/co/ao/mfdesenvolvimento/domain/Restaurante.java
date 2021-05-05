@@ -7,34 +7,45 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 
-//@Entity
+@Entity
 public class Restaurante implements Serializable{
 	private static final long serialVersionUID = 1L;
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String restaurante;
 	private String descricao;
 	private Date dataCriacao;
 	private Boolean estado;
-	private Set<String> contactos = new HashSet<>();
-	private List<String> tags = new ArrayList<>();
 	
+	@ElementCollection
+	@CollectionTable(name = "tag")
+	private List<String> tags = new ArrayList<>();
+	@OneToOne
+	@JoinColumn(name = "conta_id")
+	//@MapsId
+	private Conta conta;
 	public Restaurante() {
 	}
 
-	public Restaurante(Integer id, String restaurante, String descricao, Date dataCriacao, Boolean estado) {
+	public Restaurante(Integer id, String restaurante, String descricao, Date dataCriacao, Boolean estado, Conta conta) {
 		super();
 		this.id = id;
 		this.restaurante = restaurante;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
 		this.estado = estado;
+		this.conta = conta;
 	}
 
 	public Integer getId() {
@@ -77,14 +88,6 @@ public class Restaurante implements Serializable{
 		this.estado = estado;
 	}
 
-	public Set<String> getContactos() {
-		return contactos;
-	}
-
-	public void setContactos(Set<String> contactos) {
-		this.contactos = contactos;
-	}
-
 	public List<String> getTags() {
 		return tags;
 	}
@@ -92,6 +95,15 @@ public class Restaurante implements Serializable{
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
+	
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
