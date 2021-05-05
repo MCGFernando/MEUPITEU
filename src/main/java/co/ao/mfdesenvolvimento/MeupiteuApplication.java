@@ -12,12 +12,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import co.ao.mfdesenvolvimento.domain.CategoriaMenu;
 import co.ao.mfdesenvolvimento.domain.Conta;
 import co.ao.mfdesenvolvimento.domain.Endereco;
+import co.ao.mfdesenvolvimento.domain.ItemMenu;
 import co.ao.mfdesenvolvimento.domain.Municipio;
 import co.ao.mfdesenvolvimento.domain.Provincia;
 import co.ao.mfdesenvolvimento.domain.Restaurante;
 import co.ao.mfdesenvolvimento.repositories.CategoriaMenuRepository;
 import co.ao.mfdesenvolvimento.repositories.ContaRepository;
 import co.ao.mfdesenvolvimento.repositories.EnderecoRepository;
+import co.ao.mfdesenvolvimento.repositories.ItemMenuRepository;
 import co.ao.mfdesenvolvimento.repositories.MunicipioRepository;
 import co.ao.mfdesenvolvimento.repositories.ProvinciaRepository;
 import co.ao.mfdesenvolvimento.repositories.RestauranteRepository;
@@ -41,6 +43,8 @@ public class MeupiteuApplication implements CommandLineRunner {
 	private RestauranteRepository restauranteRepository;
 	@Autowired
 	private CategoriaMenuRepository categoriaMenuRepository;
+	@Autowired
+	private ItemMenuRepository itensMenuRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -72,7 +76,18 @@ public class MeupiteuApplication implements CommandLineRunner {
 		CategoriaMenu cat1 = new CategoriaMenu(null, "Pratos Principais", rest1);
 		CategoriaMenu cat2 = new CategoriaMenu(null, "Bebidas", rest1);
 		
+		ItemMenu itens1 = new ItemMenu(null, "Massa Com Todos", 2000D, "Mistura de massa com coxa de frango, moela, entrecosto", true);
+		ItemMenu itens2 = new ItemMenu(null, "Coca-Cola", 500D, null, false);
+		
+		cat1.getItens().addAll(Arrays.asList(itens1));
+		cat2.getItens().addAll(Arrays.asList(itens2));
+		
+		itens1.getCategorias().addAll(Arrays.asList(cat1));
+		itens2.getCategorias().addAll(Arrays.asList(cat2));
+		
 		categoriaMenuRepository.saveAll(Arrays.asList(cat1,cat2));
+		itensMenuRepository.saveAll(Arrays.asList(itens1, itens2));
+		
 		
 	}
 	

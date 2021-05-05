@@ -1,12 +1,15 @@
 package co.ao.mfdesenvolvimento.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
@@ -20,6 +23,8 @@ public class CategoriaMenu implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "restaurante_id")
 	private Restaurante restaurante;
+	@ManyToMany(mappedBy = "categorias")
+	private List<ItemMenu> itens = new ArrayList<>();
 	
 	public CategoriaMenu() {
 	}
@@ -53,6 +58,14 @@ public class CategoriaMenu implements Serializable{
 
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+ 
+	public List<ItemMenu> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemMenu> itens) {
+		this.itens = itens;
 	}
 
 	@Override

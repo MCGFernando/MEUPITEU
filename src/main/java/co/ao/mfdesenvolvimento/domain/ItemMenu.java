@@ -1,15 +1,33 @@
 package co.ao.mfdesenvolvimento.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+@Entity
 public class ItemMenu implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String item;
 	private Double preco;
 	private String descricao;
 	private Boolean pratoDoDia;
+	@ManyToMany
+	@JoinTable(
+			name = "ItemMenu_CategoriaMenu",
+			joinColumns = @JoinColumn(name="itemMenu_id"),
+			inverseJoinColumns = @JoinColumn(name="categoriaMenu_id")
+			)
+	private List<CategoriaMenu> categorias = new ArrayList<>();
 	
 	public ItemMenu() {
 	}
@@ -61,6 +79,14 @@ public class ItemMenu implements Serializable{
 
 	public void setPratoDoDia(Boolean pratoDoDia) {
 		this.pratoDoDia = pratoDoDia;
+	}
+
+	public List<CategoriaMenu> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<CategoriaMenu> categorias) {
+		this.categorias = categorias;
 	}
 
 	@Override
