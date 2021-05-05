@@ -10,7 +10,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import co.ao.mfdesenvolvimento.domain.Conta;
+import co.ao.mfdesenvolvimento.domain.Municipio;
+import co.ao.mfdesenvolvimento.domain.Provincia;
 import co.ao.mfdesenvolvimento.repositories.ContaRepository;
+import co.ao.mfdesenvolvimento.repositories.MunicipioRepository;
+import co.ao.mfdesenvolvimento.repositories.ProvinciaRepository;
 
 @SpringBootApplication
 public class MeupiteuApplication implements CommandLineRunner {
@@ -21,6 +25,11 @@ public class MeupiteuApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ContaRepository contaRepository;
+	@Autowired
+	private ProvinciaRepository provinciaRepository;
+	@Autowired
+	private MunicipioRepository municipioRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -30,6 +39,14 @@ public class MeupiteuApplication implements CommandLineRunner {
 		cont2.getContactos().addAll(Arrays.asList("921921921","923923923"));
 		
 		contaRepository.saveAll(Arrays.asList(cont1,cont2));
+		
+		Provincia prov1 = new Provincia(null, "Luanda");
+		Municipio mun1 = new Municipio(null, "Talatona", prov1);
+		prov1.getMunicipios().addAll(Arrays.asList(mun1));
+		
+		provinciaRepository.saveAll(Arrays.asList(prov1));
+		municipioRepository.saveAll(Arrays.asList(mun1));
+		
 	}
 	
 }
