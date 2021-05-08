@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.core.sym.Name;
 
 import co.ao.mfdesenvolvimento.domain.enumeration.EstadoEncomenda;
@@ -23,6 +24,7 @@ public class Encomenda {
 	private Integer estado;
 	@ManyToOne
 	@JoinColumn(name = "conta_id")
+	@JsonBackReference
 	private Conta conta;	
 	public Encomenda() {
 	}
