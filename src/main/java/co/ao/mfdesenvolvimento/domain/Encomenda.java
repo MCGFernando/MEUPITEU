@@ -2,22 +2,37 @@ package co.ao.mfdesenvolvimento.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.core.sym.Name;
+
 import co.ao.mfdesenvolvimento.domain.enumeration.EstadoEncomenda;
 
-
+@Entity
 public class Encomenda {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date dataPedido;
 	private Integer estado;
-	
+	@ManyToOne
+	@JoinColumn(name = "conta_id")
+	private Conta conta;	
 	public Encomenda() {
 	}
 
-	public Encomenda(Integer id, Date dataPedido, EstadoEncomenda estado) {
+	public Encomenda(Integer id, Date dataPedido, EstadoEncomenda estado, Conta conta) {
 		super();
 		this.id = id;
 		this.dataPedido = dataPedido;
 		this.estado = estado.getCod();
+		this.conta =  conta;
 	}
 
 	public Integer getId() {
@@ -42,6 +57,10 @@ public class Encomenda {
 
 	public void setEstado(EstadoEncomenda estado) {
 		this.estado = estado.getCod();
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
 	}
 
 	@Override

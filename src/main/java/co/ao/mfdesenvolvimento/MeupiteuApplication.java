@@ -11,13 +11,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import co.ao.mfdesenvolvimento.domain.CategoriaMenu;
 import co.ao.mfdesenvolvimento.domain.Conta;
+import co.ao.mfdesenvolvimento.domain.Encomenda;
 import co.ao.mfdesenvolvimento.domain.Endereco;
 import co.ao.mfdesenvolvimento.domain.ItemMenu;
 import co.ao.mfdesenvolvimento.domain.Municipio;
 import co.ao.mfdesenvolvimento.domain.Provincia;
 import co.ao.mfdesenvolvimento.domain.Restaurante;
+import co.ao.mfdesenvolvimento.domain.enumeration.EstadoEncomenda;
 import co.ao.mfdesenvolvimento.repositories.CategoriaMenuRepository;
 import co.ao.mfdesenvolvimento.repositories.ContaRepository;
+import co.ao.mfdesenvolvimento.repositories.EncomendaRepository;
 import co.ao.mfdesenvolvimento.repositories.EnderecoRepository;
 import co.ao.mfdesenvolvimento.repositories.ItemMenuRepository;
 import co.ao.mfdesenvolvimento.repositories.MunicipioRepository;
@@ -45,6 +48,8 @@ public class MeupiteuApplication implements CommandLineRunner {
 	private CategoriaMenuRepository categoriaMenuRepository;
 	@Autowired
 	private ItemMenuRepository itensMenuRepository;
+	@Autowired
+	private EncomendaRepository encomendaRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -88,7 +93,11 @@ public class MeupiteuApplication implements CommandLineRunner {
 		categoriaMenuRepository.saveAll(Arrays.asList(cat1,cat2));
 		itensMenuRepository.saveAll(Arrays.asList(itens1, itens2));
 		
+		Encomenda enc1 = new Encomenda(null, df.parse("01/05/2021 13:45"), EstadoEncomenda.PENDENTE, cont1);
+		Encomenda enc2 = new Encomenda(null, df.parse("01/05/2021 17:03"), EstadoEncomenda.ENTREGUE, cont1);
+		cont1.getEncomendas().addAll(Arrays.asList(enc1, enc2));
 		
+		encomendaRepository.saveAll(Arrays.asList(enc1, enc2));
 	}
 	
 }

@@ -1,8 +1,10 @@
 package co.ao.mfdesenvolvimento.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class Conta implements Serializable{
@@ -28,7 +31,8 @@ public class Conta implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "contacto")
 	private Set<String> contactos = new HashSet<>();
-	
+	@OneToMany(mappedBy = "conta")
+	private List<Encomenda> encomendas = new ArrayList<>();
 	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "conta", optional = true, fetch = FetchType.LAZY)
 	private Restaurante restaurante;*/
 	
@@ -109,6 +113,14 @@ public class Conta implements Serializable{
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
 	}*/
+
+	public List<Encomenda> getEncomendas() {
+		return encomendas;
+	}
+
+	public void setEncomendas(List<Encomenda> encomendas) {
+		this.encomendas = encomendas;
+	}
 
 	@Override
 	public int hashCode() {
