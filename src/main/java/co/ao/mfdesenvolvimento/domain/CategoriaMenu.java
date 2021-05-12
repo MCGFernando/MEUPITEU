@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class CategoriaMenu implements Serializable{
@@ -22,7 +25,9 @@ public class CategoriaMenu implements Serializable{
 	private String categoria;
 	@ManyToOne
 	@JoinColumn(name = "restaurante_id")
+	@JsonBackReference
 	private Restaurante restaurante;
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<ItemMenu> itens = new ArrayList<>();
 	
@@ -59,7 +64,7 @@ public class CategoriaMenu implements Serializable{
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
 	}
- 
+
 	public List<ItemMenu> getItens() {
 		return itens;
 	}

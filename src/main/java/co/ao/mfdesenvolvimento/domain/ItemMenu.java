@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 public class ItemMenu implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,6 +23,7 @@ public class ItemMenu implements Serializable{
 	private Double preco;
 	private String descricao;
 	private Boolean pratoDoDia;
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(
 			name = "ItemMenu_CategoriaMenu",

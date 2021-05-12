@@ -34,7 +34,7 @@ public class Conta implements Serializable{
 	@CollectionTable(name = "contacto")
 	private Set<String> contactos = new HashSet<>();
 	@OneToMany(mappedBy = "conta")
-	@JsonManagedReference
+	//@JsonManagedReference
 	private List<Encomenda> encomendas = new ArrayList<>();
 	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "conta", optional = true, fetch = FetchType.LAZY)
 	private Restaurante restaurante;*/
