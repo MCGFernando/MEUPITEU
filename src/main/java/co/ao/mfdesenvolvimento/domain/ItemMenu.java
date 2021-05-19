@@ -2,7 +2,9 @@ package co.ao.mfdesenvolvimento.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
@@ -31,7 +34,8 @@ public class ItemMenu implements Serializable{
 			inverseJoinColumns = @JoinColumn(name="categoriaMenu_id")
 			)
 	private List<CategoriaMenu> categorias = new ArrayList<>();
-	
+	@OneToMany(mappedBy = "id.itemMenu")
+	private Set<ItensEncomenda> itens = new HashSet<ItensEncomenda>();
 	public ItemMenu() {
 	}
 
@@ -44,6 +48,14 @@ public class ItemMenu implements Serializable{
 		this.pratoDoDia = pratoDoDia;
 	}
 
+	public List<Encomenda> getEncomendas (){
+		List<Encomenda> lista = new ArrayList<>();
+		for(ItensEncomenda x : itens) {
+			lista.add(x.getEncomenda());
+		}
+		return lista;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -90,6 +102,14 @@ public class ItemMenu implements Serializable{
 
 	public void setCategorias(List<CategoriaMenu> categorias) {
 		this.categorias = categorias;
+	}
+
+	public Set<ItensEncomenda> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItensEncomenda> itens) {
+		this.itens = itens;
 	}
 
 	@Override

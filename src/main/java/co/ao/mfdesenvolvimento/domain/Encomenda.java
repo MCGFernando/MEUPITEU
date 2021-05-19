@@ -1,6 +1,10 @@
 package co.ao.mfdesenvolvimento.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.core.sym.Name;
 
 import co.ao.mfdesenvolvimento.domain.enumeration.EstadoEncomenda;
 
@@ -26,6 +29,8 @@ public class Encomenda {
 	@JoinColumn(name = "conta_id")
 	@JsonBackReference
 	private Conta conta;	
+	@OneToMany(mappedBy = "id.encomenda")
+	private Set<ItensEncomenda> itens = new HashSet<>();
 	public Encomenda() {
 	}
 
@@ -35,6 +40,22 @@ public class Encomenda {
 		this.dataPedido = dataPedido;
 		this.estado = estado.getCod();
 		this.conta =  conta;
+	}
+	
+	public List<ItemMenu> getItemMenu (){
+		List<ItemMenu> lista = new ArrayList<>();
+		for(ItensEncomenda x : itens) {
+			lista.add(x.getItemMenu());
+		}
+		return lista;
+	}
+	
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 	public Integer getId() {
@@ -63,6 +84,14 @@ public class Encomenda {
 
 	public void setEstado(Integer estado) {
 		this.estado = estado;
+	}
+
+	public Set<ItensEncomenda> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItensEncomenda> itens) {
+		this.itens = itens;
 	}
 
 	@Override

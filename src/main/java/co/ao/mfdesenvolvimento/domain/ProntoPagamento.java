@@ -1,7 +1,5 @@
 package co.ao.mfdesenvolvimento.domain;
 
-import java.util.Date;
-
 import co.ao.mfdesenvolvimento.domain.enumeration.EstadoPagamento;
 import co.ao.mfdesenvolvimento.domain.enumeration.TipoPagamento;
 

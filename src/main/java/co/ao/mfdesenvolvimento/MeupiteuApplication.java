@@ -14,6 +14,7 @@ import co.ao.mfdesenvolvimento.domain.Conta;
 import co.ao.mfdesenvolvimento.domain.Encomenda;
 import co.ao.mfdesenvolvimento.domain.Endereco;
 import co.ao.mfdesenvolvimento.domain.ItemMenu;
+import co.ao.mfdesenvolvimento.domain.ItensEncomenda;
 import co.ao.mfdesenvolvimento.domain.Municipio;
 import co.ao.mfdesenvolvimento.domain.Provincia;
 import co.ao.mfdesenvolvimento.domain.Restaurante;
@@ -23,6 +24,7 @@ import co.ao.mfdesenvolvimento.repositories.ContaRepository;
 import co.ao.mfdesenvolvimento.repositories.EncomendaRepository;
 import co.ao.mfdesenvolvimento.repositories.EnderecoRepository;
 import co.ao.mfdesenvolvimento.repositories.ItemMenuRepository;
+import co.ao.mfdesenvolvimento.repositories.ItensEncomendaRepository;
 import co.ao.mfdesenvolvimento.repositories.MunicipioRepository;
 import co.ao.mfdesenvolvimento.repositories.ProvinciaRepository;
 import co.ao.mfdesenvolvimento.repositories.RestauranteRepository;
@@ -50,6 +52,8 @@ public class MeupiteuApplication implements CommandLineRunner {
 	private ItemMenuRepository itensMenuRepository;
 	@Autowired
 	private EncomendaRepository encomendaRepository;
+	@Autowired
+	private ItensEncomendaRepository itensEncomendaRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -98,6 +102,18 @@ public class MeupiteuApplication implements CommandLineRunner {
 		cont1.getEncomendas().addAll(Arrays.asList(enc1, enc2));
 		
 		encomendaRepository.saveAll(Arrays.asList(enc1, enc2));
+		
+		ItensEncomenda itenEnc1 = new ItensEncomenda(enc1, itens1, 2000.00, 0.00, 1);
+		ItensEncomenda itenEnc2 = new ItensEncomenda(enc1, itens2, 1000.00, 0.00, 2);
+		ItensEncomenda itenEnc3 = new ItensEncomenda(enc2, itens1, 2000.00, 0.00, 1);
+		
+		enc1.getItens().addAll(Arrays.asList(itenEnc1, itenEnc2));
+		enc2.getItens().addAll(Arrays.asList(itenEnc3));
+		
+		itens1.getItens().addAll(Arrays.asList(itenEnc1, itenEnc3));
+		itens2.getItens().addAll(Arrays.asList(itenEnc2));
+		
+		itensEncomendaRepository.saveAll(Arrays.asList(itenEnc1, itenEnc2, itenEnc3));
 	}
 	
 }
