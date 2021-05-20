@@ -1,22 +1,27 @@
 package co.ao.mfdesenvolvimento.resouces;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.ao.mfdesenvolvimento.domain.Conta;
+import co.ao.mfdesenvolvimento.services.ContaService;
 
 @RestController
 @RequestMapping(value = "/contas")
 public class ContaResouce {
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Conta> listar(){
+	@Autowired
+	private ContaService service;
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> findById(@PathVariable Integer id){
+		Conta obj = service.buscar(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	/*public List<Conta> listar(){
 		List<Conta> lst = new ArrayList<>();
 		try {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -29,5 +34,5 @@ public class ContaResouce {
 			e.printStackTrace();
 		}
 		return lst;
-	}
+	}*/
 }

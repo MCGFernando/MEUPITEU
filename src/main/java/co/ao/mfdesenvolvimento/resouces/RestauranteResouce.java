@@ -13,7 +13,7 @@ import co.ao.mfdesenvolvimento.domain.Restaurante;
 import co.ao.mfdesenvolvimento.services.RestauranteService;
 
 @RestController
-@RequestMapping(value = "/restaurante")
+@RequestMapping(value = "/restaurantes")
 public class RestauranteResouce {
 	@Autowired
 	private RestauranteService service;

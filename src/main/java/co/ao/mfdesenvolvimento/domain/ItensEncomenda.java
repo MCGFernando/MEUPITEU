@@ -24,14 +24,15 @@ public class ItensEncomenda {
 		this.id.setEncomenda(encomenda);
 		this.id.setItemMenu(itemMenu);
 	}
-
+	@JsonIgnore
 	public Encomenda getEncomenda() {
 		return id.getEncomenda();
 	}
-	
+	@JsonIgnore
 	public ItemMenu getItemMenu() {
 		return id.getItemMenu();
 	}
+	
 	public ItensEncomendaPK getId() {
 		return id;
 	}

@@ -13,7 +13,7 @@ import co.ao.mfdesenvolvimento.domain.CategoriaMenu;
 import co.ao.mfdesenvolvimento.services.CategoriaMenuService;
 
 @RestController
-@RequestMapping(value = "/menu")
+@RequestMapping(value = "/menus")
 public class CategoriaMenuResouce {
 	@Autowired
 	private CategoriaMenuService service;

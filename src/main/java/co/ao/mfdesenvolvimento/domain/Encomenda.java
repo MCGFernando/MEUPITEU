@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import co.ao.mfdesenvolvimento.domain.enumeration.EstadoEncomenda;
 
@@ -28,7 +30,10 @@ public class Encomenda {
 	@ManyToOne
 	@JoinColumn(name = "conta_id")
 	@JsonBackReference
+	//@JsonIgnore
 	private Conta conta;	
+	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "id.encomenda")
 	private Set<ItensEncomenda> itens = new HashSet<>();
 	public Encomenda() {
@@ -41,7 +46,7 @@ public class Encomenda {
 		this.estado = estado.getCod();
 		this.conta =  conta;
 	}
-	
+	//@JsonIgnore
 	public List<ItemMenu> getItemMenu (){
 		List<ItemMenu> lista = new ArrayList<>();
 		for(ItensEncomenda x : itens) {

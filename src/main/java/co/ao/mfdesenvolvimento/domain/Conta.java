@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Conta implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -28,8 +30,9 @@ public class Conta implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "contacto")
 	private Set<String> contactos = new HashSet<>();
+	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "conta")
-	//@JsonManagedReference
 	private List<Encomenda> encomendas = new ArrayList<>();
 	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "conta", optional = true, fetch = FetchType.LAZY)
 	private Restaurante restaurante;*/
