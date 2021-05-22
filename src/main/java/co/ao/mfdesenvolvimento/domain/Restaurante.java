@@ -33,7 +33,7 @@ public class Restaurante implements Serializable{
 	@CollectionTable(name = "tag")
 	private List<String> tags = new ArrayList<>();
 	
-	@JsonManagedReference
+	//@JsonManagedReference
 	@OneToMany(mappedBy = "restaurante")
 	private List<CategoriaMenu> categorias = new ArrayList<>();
 	

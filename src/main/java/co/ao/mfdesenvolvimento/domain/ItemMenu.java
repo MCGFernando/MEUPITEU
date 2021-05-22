@@ -28,7 +28,7 @@ public class ItemMenu implements Serializable{
 	private Double preco;
 	private String descricao;
 	private Boolean pratoDoDia;
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name = "ItemMenu_CategoriaMenu",

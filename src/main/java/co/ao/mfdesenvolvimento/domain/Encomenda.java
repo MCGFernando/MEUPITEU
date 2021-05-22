@@ -33,7 +33,7 @@ public class Encomenda {
 	//@JsonIgnore
 	private Conta conta;	
 	
-	@JsonManagedReference
+	//@JsonManagedReference
 	@OneToMany(mappedBy = "id.encomenda")
 	private Set<ItensEncomenda> itens = new HashSet<>();
 	public Encomenda() {
@@ -87,7 +87,7 @@ public class Encomenda {
 		this.estado = estado.getCod();
 	}
 
-	public void setEstado(Integer estado) {
+	public void setEstadoEncomenda(Integer estado) {
 		this.estado = estado;
 	}
 

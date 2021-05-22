@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,8 +18,7 @@ import co.ao.mfdesenvolvimento.services.exceptions.ObjectNotFoundException;
 public class ContaService {
 	@Autowired
 	private ContaRepository repo;
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Conta buscar(Integer id) {
+	public Conta find(Integer id) {
 		Optional<Conta> obj = repo.findById(id);
 		return obj.orElseThrow(
 				()-> new ObjectNotFoundException(
@@ -26,4 +26,10 @@ public class ContaService {
 						)
 				);
 	}
+	@Transactional
+	public Conta save(Conta conta) {
+		conta.setId(null);
+		return repo.save(conta); 
+	}
+	
 }

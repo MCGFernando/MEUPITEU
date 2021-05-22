@@ -1,6 +1,9 @@
 package co.ao.mfdesenvolvimento.resouces;
 
+
 import java.net.URI;
+
+import javax.security.auth.message.config.ServerAuthContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,40 +14,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import co.ao.mfdesenvolvimento.domain.Conta;
-import co.ao.mfdesenvolvimento.services.ContaService;
+import co.ao.mfdesenvolvimento.domain.Provincia;
+import co.ao.mfdesenvolvimento.services.ProvinciaService;
 
 @RestController
-@RequestMapping(value = "/contas")
-public class ContaResouce {
+@RequestMapping(value = "/provincias")
+public class ProvinciaResouce {
 	@Autowired
-	private ContaService service;
+	private ProvinciaService service;
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> findById(@PathVariable Integer id){
-		Conta obj = service.find(id);
+		Provincia obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody Conta conta){
-		conta = service.save(conta);
+	public ResponseEntity<Void> save(@RequestBody Provincia provincia){
+		provincia = service.save(provincia);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(conta.getId()).toUri();
+				.buildAndExpand(provincia.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	/*public List<Conta> listar(){
-		List<Conta> lst = new ArrayList<>();
-		try {
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		Conta cont1 = new Conta(1, "Joao Baluard da Costa", "joaocosta@gmail.com", "123456", df.parse("01/05/2021 23:52"), true);
-		Conta cont2 = new Conta(2, "Felisberta Amborsio", "saboresdaterra@gmail.com", "654321", df.parse("29/04/2021 13:40"), true);
-		lst.add(cont1);
-		lst.add(cont2);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return lst;
-	}*/
 }

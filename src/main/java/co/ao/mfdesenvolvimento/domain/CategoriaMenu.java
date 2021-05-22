@@ -26,9 +26,9 @@ public class CategoriaMenu implements Serializable{
 	private String categoria;
 	@ManyToOne
 	@JoinColumn(name = "restaurante_id")
-	@JsonBackReference
+	@JsonIgnore
 	private Restaurante restaurante;
-	@JsonManagedReference
+	//@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<ItemMenu> itens = new ArrayList<>();
 	

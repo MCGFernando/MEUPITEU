@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 public class Municipio implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -17,6 +19,7 @@ public class Municipio implements Serializable{
 	private String municipio;
 	@ManyToOne
 	@JoinColumn(name = "provincia_id")
+	@JsonBackReference
 	private Provincia provincia;
 	public Municipio() {
 	}

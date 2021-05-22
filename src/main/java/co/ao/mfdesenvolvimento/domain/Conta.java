@@ -15,7 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonSetter;
 @Entity
 public class Conta implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -25,7 +27,7 @@ public class Conta implements Serializable{
 	private String nome;
 	private String email;
 	private String senha;
-	private Date dataCriacao;
+	private Date dataCriacao; 
 	private Boolean estado;
 	@ElementCollection
 	@CollectionTable(name = "contacto")
@@ -94,7 +96,7 @@ public class Conta implements Serializable{
 	public Boolean getEstado() {
 		return estado;
 	}
-
+	@JsonSetter("estado_conta")
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
@@ -107,18 +109,11 @@ public class Conta implements Serializable{
 		this.contactos = contactos;
 	}
 
-	/*public Restaurante getRestaurante() {
-		return restaurante;
-	}
-
-	public void setRestaurante(Restaurante restaurante) {
-		this.restaurante = restaurante;
-	}*/
-
+	
 	public List<Encomenda> getEncomendas() {
 		return encomendas;
 	}
-
+	
 	public void setEncomendas(List<Encomenda> encomendas) {
 		this.encomendas = encomendas;
 	}
