@@ -38,6 +38,9 @@ public class Restaurante implements Serializable{
 	@OneToMany(mappedBy = "restaurante")
 	private List<CategoriaMenu> categorias = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "restaurante")
+	private List<Endereco> enderecos = new  ArrayList<>();
+	
 	//@MapsId
 	@OneToOne
 	@JsonBackReference
@@ -119,6 +122,15 @@ public class Restaurante implements Serializable{
 
 	public void setCategorias(List<CategoriaMenu> categorias) {
 		this.categorias = categorias;
+	}
+
+	
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override

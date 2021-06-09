@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import co.ao.mfdesenvolvimento.domain.Conta;
 import co.ao.mfdesenvolvimento.domain.Restaurante;
+import co.ao.mfdesenvolvimento.dto.RestauranteNovoDTO;
 import co.ao.mfdesenvolvimento.services.RestauranteService;
 
 @RestController
@@ -28,11 +28,13 @@ public class RestauranteResouce {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody Restaurante restaurante){
+	public ResponseEntity<Void> save(@RequestBody RestauranteNovoDTO restauranteDTO){
+		Restaurante restaurante = service.fromDTO(restauranteDTO);
 		restaurante = service.save(restaurante);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(restaurante.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
 }

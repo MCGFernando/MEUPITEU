@@ -27,6 +27,10 @@ public class Endereco implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "municipio_id")
 	private Municipio municipio;
+	
+	@ManyToOne
+	@JoinColumn(name = "restuarante_id")
+	private Restaurante restaurante;
 	public Endereco() {
 	}
 
@@ -132,6 +136,14 @@ public class Endereco implements Serializable{
 
 	public void setMunicipio(Municipio municipio) {
 		this.municipio = municipio;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 
 	@Override
