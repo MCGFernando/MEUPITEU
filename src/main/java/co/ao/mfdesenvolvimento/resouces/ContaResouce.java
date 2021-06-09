@@ -33,6 +33,16 @@ public class ContaResouce {
 				.buildAndExpand(conta.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Conta conta,@PathVariable Integer id){
+		conta.setId(id);
+		conta = service.update(conta);
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	
 	/*public List<Conta> listar(){
 		List<Conta> lst = new ArrayList<>();
 		try {

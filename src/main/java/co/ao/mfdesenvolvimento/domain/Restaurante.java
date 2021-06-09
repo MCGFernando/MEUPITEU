@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -37,10 +38,12 @@ public class Restaurante implements Serializable{
 	@OneToMany(mappedBy = "restaurante")
 	private List<CategoriaMenu> categorias = new ArrayList<>();
 	
-	@OneToOne
-	@JoinColumn(name = "conta_id")
 	//@MapsId
+	@OneToOne
+	@JsonBackReference
+	@JoinColumn(name = "conta_id")
 	private Conta conta;
+	
 	public Restaurante() {
 	}
 

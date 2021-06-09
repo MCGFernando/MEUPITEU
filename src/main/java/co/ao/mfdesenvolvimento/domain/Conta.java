@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -38,6 +39,9 @@ public class Conta implements Serializable{
 	private List<Encomenda> encomendas = new ArrayList<>();
 	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "conta", optional = true, fetch = FetchType.LAZY)
 	private Restaurante restaurante;*/
+	@JsonManagedReference
+	@OneToOne(mappedBy = "conta", optional = true)
+	private Restaurante restaurante;
 	
 	public Conta() {
 	}
@@ -96,7 +100,7 @@ public class Conta implements Serializable{
 	public Boolean getEstado() {
 		return estado;
 	}
-	@JsonSetter("estado_conta")
+	
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
